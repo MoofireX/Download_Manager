@@ -4,13 +4,15 @@ import platform
 
 system = platform.system()
 
-categories = {"Videos" : ["mov", "mp4"], "Documents" : ["docx", "pdf", "md", "txt", "odt", "doc"], "Images" : ["jpg", "svg", "jpeg", "png", "gif"], "Installers" : ["iso", "dmg", "exe", "deb", "appimage"], "Zip Files" : ["zip", "gz", "tar", "7z", "rar"], "Unknown" : ["unknown"], "Code" : ["py", "cpp", "js", "java", "cs", "sh"],
-              "Audio" : ["mp3", "wav"], "Spreadsheet" : ["csv", "xls", "xlsx", "ods"]}
+categories = {"Videos" : ["mov", "mp4"], "Documents" : ["docx", "pdf", "md", "txt", "odt", "doc"], "Images" : ["jpg", "svg", "jpeg", "png", "gif"], "Installers" : ["iso", "dmg", "exe", "deb", "appimage"], "Zip Files" : ["zip", "gz", "tar", "7z", "rar"], "Unknown" : ["unknown"], "Code" : ["py", "cpp", "js", "java", "cs", "sh"], "Audio" : ["mp3", "wav"], "Spreadsheet" : ["csv", "xls", "xlsx", "ods"]}
 
 user = os.getlogin()
+path = ""
 
-if system == "Linux" or system == "Darwin":
+if system == "Linux":
     path = f"/home/{user}/Downloads"
+elif system == "Darwin":
+    path = f"/Users/{user}/Downloads"
 elif system == "Windows":
     path = f"C:\\Users\\{user}\\Downloads"
 
@@ -51,4 +53,7 @@ for file in files:
 if moved == False:
     print(f"Moving unknown file: {file} to directory: 'Unknown'.")
     shutil.move(f"{path}/{file}", f"{path}/Unknown/{files[files.index(file)]}")
+
+
+
 
